@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scale=no, viewport-fit=cover">
+    <title>Videoflow Switcher</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videoflow-framework@0"></script>
+    <script src="js/main.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/controller.css" />
+</head>
+<body ng-app="switcherApp" ng-controller="switcherController">
+    <div class="switcher" ng-if="edit">
+        <div class="overlay">
+            <div class="cam-btn cam0" ng-click="switchCamera(0)" ng-if="data.cameras[0].enable">
+                <span class="cam-btn-name">{{data.cameras[0].name}}</span>
+            </div>
+            <div class="cam-btn cam1" ng-click="switchCamera(1)" ng-if="data.cameras[1].enable">
+                <span class="cam-btn-name">{{data.cameras[1].name}}</span>
+            </div>
+            <div class="cam-btn cam2" ng-click="switchCamera(2)" ng-if="data.cameras[2].enable">
+                <span class="cam-btn-name">{{data.cameras[2].name}}</span>
+            </div>
+            <div class="cam-btn cam3" ng-click="switchCamera(3)" ng-if="data.cameras[3].enable">
+                <span class="cam-btn-name">{{data.cameras[3].name}}</span>
+            </div>
+            <div class="marker pgm {{'cam'+data.selectedCamera}}" ng-class="{prv:data.selectedCamera===selectedPrv}"></div>
+            <div class="marker prv {{'cam'+selectedPrv}}" ng-class="{pgm:data.selectedCamera===selectedPrv}"></div>
+        </div>
+        <div class="ui">
+            <div class="ui-switcher-rows">
+                <div class="ui-switcher-row">
+                    <span class="ui-switcher-title pgm">PGM</span>
+                    <div class="ui-switcher-item pgm" ng-repeat="camera in data.cameras track by $index" ng-class="{active:data.selectedCamera===$index}" ng-click="switchCamera($index)" ng-if="camera.enable">
+                        <span>{{camera.name}}</span>
+                    </div>
+                </div>
+                <div class="ui-switcher-row">
+                    <span class="ui-switcher-title prv">PRV</span>
+                    <div class="ui-switcher-item prv" ng-repeat="camera in data.cameras track by $index" ng-class="{active:selectedPrv===$index}" ng-click="prvCamera($index)" ng-if="camera.enable">
+                        <span>{{camera.name}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="take-btn" ng-click="take()" ng-class="{disabled: data.selectedCamera===selectedPrv}">
+                <span>TAKE</span>
+            </div>
+        </div>
+        <div class="settings" ng-if="settingsVisibility">
+            <h2>Cameras</h2>
+            <div class="settings-row">
+                <h3 class="settings-row-title">Camera 1</h3>
+                <span class="settings-row-prop-name">Name</span>
+                <input class="settings-row-prop" type="text" ng-model="data.cameras[0].name" value="data.cameras[0].name"/>
+                <span class="settings-row-prop-name">Enable</span>
+                <input class="settings-row-prop" type="checkbox" ng-model="data.cameras[0].enable"/>
+            </div>
+            <div class="settings-row">
+                <h3 class="settings-row-title">Camera 2</h3>
+                <span class="settings-row-prop-name">Name</span>
+                <input class="settings-row-prop" type="text" ng-model="data.cameras[1].name" value="data.cameras[1].name"/>
+                <span class="settings-row-prop-name">Enable</span>
+                <input class="settings-row-prop" type="checkbox" ng-model="data.cameras[1].enable"/>
+            </div>
+            <div class="settings-row">
+                <h3 class="settings-row-title">Camera 3</h3>
+                <span class="settings-row-prop-name">Name</span>
+                <input class="settings-row-prop" type="text" ng-model="data.cameras[2].name" value="data.cameras[2].name"/>
+                <span class="settings-row-prop-name">Enable</span>
+                <input class="settings-row-prop" type="checkbox" ng-model="data.cameras[2].enable"/>
+            </div>
+            <div class="settings-row">
+                <h3 class="settings-row-title">Camera 4</h3>
+                <span class="settings-row-prop-name">Name</span>
+                <input class="settings-row-prop" type="text" ng-model="data.cameras[3].name" value="data.cameras[3].name"/>
+                <span class="settings-row-prop-name">Enable</span>
+                <input class="settings-row-prop" type="checkbox" ng-model="data.cameras[3].enable"/>
+            </div>
+            <h2>Viewer Interaction</h2>
+            <div class="settings-row">
+                <span class="settings-row-prop-name">Viewers can switch cameras independantly</span>
+                <input class="settings-row-prop" type="checkbox" ng-model="data.settings.userControl"/>
+            </div>
+            <div class="settings-row">
+                <span class="settings-row-prop-name">Viewers can pick directors view</span>
+                <input class="settings-row-prop" type="checkbox" ng-model="data.settings.userDirectorView"/>
+            </div>
+        </div>
+        <div class="settings-toggle" ng-click="toggleSettings()">
+            <span ng-if="settingsVisibility">X</span>
+            <span ng-if="!settingsVisibility">S</span>
+        </div>
+    </div>
+    <div class="controller mobile" ng-if="!edit && data.settings.userControl">
+        <!-- <div class="ctrl-user"> -->
+            <div class="ctrl-btn {{'cam'+$index}}" ng-repeat="camera in data.cameras track by $index" ng-class="{active:userSelectedCamera===$index && !directorView}" ng-click="selectCamera($index)" ng-if="camera.enable">
+                <span class="ctrl-btn-title">{{camera.name}}</span>
+            </div>
+        <!-- </div> -->
+        <div class="ctrl-btn cam-director" ng-class="{active:directorView}" ng-click="toggleDirectorView()" ng-if="data.settings.userDirectorView">
+            <span class="ctrl-btn-title">Director View</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+:root{
+    --pgm-color:red;
+    --prv-color:green;
+    --marker-width:5px;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.switcher{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+.switcher .overlay{
+    position: absolute;
+    top:0;
+    left:12.5%;
+    bottom:25%;
+    right:12.5%;
+}
+
+.switcher .overlay .cam-btn{
+    position: absolute;
+    cursor: pointer;
+}
+
+.switcher .overlay .cam-btn .cam-btn-name{
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    font-size: 0.75vw;
+    background-color: rgb(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 0.5vw;
+    top: var(--marker-width);
+    left: var(--marker-width);
+}
+
+.switcher .overlay .marker{
+    position: absolute;
+    border-width: var(--marker-width);
+    border-style: solid;
+    pointer-events: none;
+    display: none;
+}
+
+.switcher .overlay .cam0{
+    top:0;
+    left:0;
+    width: 50%;
+    height: 50%;
+    display: flex;
+
+}
+
+.switcher .overlay .cam1{
+    top:0;
+    left:50%;
+    width: 50%;
+    height: 50%;
+    display: flex;
+}
+
+.switcher .overlay .cam2{
+    top:50%;
+    left:0;
+    width: 50%;
+    height: 50%;
+    display: flex;
+}
+
+.switcher .overlay .cam3{
+    top:50%;
+    left:50%;
+    width: 50%;
+    height: 50%;
+    display: flex;
+}
+
+.switcher .overlay .marker.pgm{
+    border-color: var(--pgm-color);
+}
+
+.switcher .overlay .marker.prv{
+    border-color:var(--prv-color);
+}
+
+.switcher .overlay .marker.pgm.prv{
+    border-image-source: repeating-linear-gradient(45deg, var(--pgm-color), var(--pgm-color) 10px, var(--prv-color) 10px, var(--prv-color) 20px );
+    border-image-slice: 1;
+}
+
+
+
+.switcher .ui{
+    position: absolute;
+    top:75%;
+    bottom:0;
+    width: 100%;
+    display: flex;
+    
+    background-color: #12161b;
+}
+
+.switcher .ui .ui-switcher-rows{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row{
+    display: flex;
+    flex:1;
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5vw;
+    min-width: 10vw;
+    font-weight: bold;
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-title.pgm{
+    color:var(--pgm-color);
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-title.prv{
+    color:var(--prv-color);
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+    margin: 5px;
+    color: #fff;
+    font-size: 1.5vw;
+    user-select: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-item.pgm{
+    background: rgb(255,0,0,0.15);
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-item.pgm.active{
+    background: rgb(255,0,0,0.5);
+    pointer-events: none;
+}
+
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-item.pgm:hover{
+    background: rgb(255,0,0,0.3);
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-item.prv{
+    background: rgb(0,255,0,0.15);
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-item.active{
+    background: rgb(0,255,0,0.5);
+    pointer-events: none;
+}
+
+.switcher .ui .ui-switcher-rows .ui-switcher-row .ui-switcher-item.prv:hover{
+    background: rgb(0,255,0,0.3);
+}
+
+.switcher .ui .take-btn{
+    width: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255, 255, 255, 0.1);
+    margin: 5px;
+    color: #fff;
+    font-size: 2vw;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.switcher .ui .take-btn:hover{
+    background: rgb(255, 255, 255, 0.3);
+}
+
+.switcher .ui .disabled{
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.switcher .settings-toggle{
+    position: absolute;
+    top:0;
+    right:0;
+    width: 5vw;
+    height: 5vw;
+    background: rgb(255, 255, 255, 0.1);
+    cursor: pointer;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    outline: none;
+    color:#fff;
+}
+
+.switcher .settings-toggle:hover{
+    background: rgb(255, 255, 255, 0.3);
+}
+
+.switcher .settings{
+    background-color: rgba(0,0,0,0.9);
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color:#fff;
+    padding: 1vw;
+}
+
+.switcher .settings .settings-row{
+    display: flex;
+    align-items: center;
+    padding:0.5vw 0 0.5vw 1vw;
+}
+
+
+.switcher .settings .settings-row .settings-row-title{
+    margin: 0;
+}
+
+.switcher .settings .settings-row .settings-row-prop-name{
+    margin-left: 2vw;
+}
+
+.switcher .settings .settings-row .settings-row-prop{
+    margin-left: 1vw;
+}
