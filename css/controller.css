@@ -17,10 +17,6 @@
     background-color: var(--ctrl-bg);
 }
 
-.controller.mobile{
-
-}
-
 .controller .ctrl-user{
     display: flex;
 }
