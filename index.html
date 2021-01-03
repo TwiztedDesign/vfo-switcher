@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/controller.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body ng-app="switcherApp" ng-controller="switcherController">
     <div class="switcher" ng-if="edit">
@@ -91,8 +92,8 @@
             </div>
         </div>
         <div class="settings-toggle" ng-click="toggleSettings()">
-            <span ng-if="settingsVisibility">X</span>
-            <span ng-if="!settingsVisibility">S</span>
+            <i ng-if="settingsVisibility"class="fa fa-times" aria-hidden="true"></i>
+            <i ng-if="!settingsVisibility"class="fa fa-sliders" aria-hidden="true"></i>
         </div>
     </div>
     <div class="controller mobile" ng-if="!edit && data.settings.userControl">

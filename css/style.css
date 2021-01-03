@@ -204,10 +204,10 @@ body{
 
 .switcher .settings-toggle{
     position: absolute;
-    top:0;
-    right:0;
-    width: 5vw;
-    height: 5vw;
+    top: 0.25vw;
+    right: 0.25vw;
+    width: 3vw;
+    height: 3vw;
     background: rgb(255, 255, 255, 0.1);
     cursor: pointer;
     z-index: 99999;
@@ -216,7 +216,9 @@ body{
     align-items: center;
     user-select: none;
     outline: none;
-    color:#fff;
+    color: #fff;
+    font-size: 1.25vw;
+    border-radius: 0.25vw;
 }
 
 .switcher .settings-toggle:hover{
