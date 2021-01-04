@@ -119,6 +119,7 @@ angular.module('switcherApp',[])
                     }
                 }else if (e.code==='Space' && $scope.data.selectedCamera !== $scope.selectedPrv ){
                     $scope.take();
+                    $scope.$apply();
                 }
             }
         });
