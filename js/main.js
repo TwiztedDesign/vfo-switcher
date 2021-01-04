@@ -54,8 +54,8 @@ angular.module('switcherApp',[])
         vff.onStateChange(e => {
             if(!$scope.edit){
                 handleOrientation();        
-                $scope.$apply();
             }
+            $scope.$apply();
         });
 
         vff.onDeviceChange((e)=>{
